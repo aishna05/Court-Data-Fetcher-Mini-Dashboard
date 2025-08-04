@@ -1,0 +1,20 @@
+<!-- result.html -->
+<h2>Fetched Case Details:</h2>
+
+{% if error %}
+  <p style="color:red">{{ error }}</p>
+{% elif cases|length == 0 %}
+  <p>No case details found.</p>
+{% else %}
+  <ul>
+  {% for case in cases %}
+    <li>
+      <strong>{{ case.court }}</strong><br>
+      {{ case.case_info }}<br>
+      {{ case.parties }}<br>
+      CNR: {{ case.case_cno }}
+    </li>
+    <hr>
+  {% endfor %}
+  </ul>
+{% endif %}
