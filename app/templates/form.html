@@ -2,6 +2,29 @@
 <html>
   <head>
     <title>Case Lookup</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#14b8a6", // Teal
+              light: "#f0fdfa",   // Light Teal
+              accent: "#ccfbf1",  // Pastel Teal
+            },
+            fontSize: {
+              base: "1.1rem",
+              lg: "1.25rem",
+            }
+          },
+        },
+      };
+    </script>
+
     <script>
       function toggleCourtDropdown() {
         const type = document.querySelector(
@@ -14,125 +37,122 @@
       }
     </script>
   </head>
-  <body>
-    <h2>Search Court Case</h2>
 
-    <form method="POST" action="/search">
-      <label>Select Court Type:</label><br />
-      <input
-        type="radio"
-        name="court_type"
-        value="complex"
-        checked
-        onchange="toggleCourtDropdown()"
-      />
-      Court Complex
-      <input
-        type="radio"
-        name="court_type"
-        value="establishment"
-        onchange="toggleCourtDropdown()"
-      />
-      Court Establishment <br /><br />
+  <body class="min-h-screen bg-gradient-to-br from-teal-100 to-teal-200 p-6 font-sans text-gray-800 text-base">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl font-bold mb-6 text-teal-700 text-center">Search Court Case</h2>
 
-      <!-- Court Complex Dropdown -->
-      <div id="courtComplexDiv">
-        <label for="court_complex">Select Court Code:</label>
-        <select name="court_complex" id="court_complex" required>
-          <option value="HRFB01">District and Sessions Court, Faridabad</option>
-          <option value="HRFB02">Civil Judge Senior Division, Faridabad</option>
+      <form method="POST" action="/search" class="bg-white shadow-2xl rounded-2xl p-10 border border-teal-300">
+        <!-- Court Type Selection -->
+        <label class="block text-lg font-semibold text-teal-900 mb-2">Select Court Type:</label>
+        <div class="mb-4">
+          <input type="radio" name="court_type" value="complex" checked onchange="toggleCourtDropdown()" class="mr-2 accent-teal-600" />
+          <span class="mr-6">Court Complex</span>
+          <input type="radio" name="court_type" value="establishment" onchange="toggleCourtDropdown()" class="mr-2 accent-teal-600" />
+          Court Establishment
+        </div>
+
+        <!-- Court Complex Dropdown -->
+        <div id="courtComplexDiv" class="mb-4">
+          <label for="court_complex" class="block text-lg font-medium text-teal-900 mb-1">Select Court Code:</label>
+          <select name="court_complex" id="court_complex" required class="w-full px-4 py-2 border border-teal-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition">
+            <option value="HRFB01">District Court, Faridabad - HRFB01</option>
+            <option value="HRFB02">Civil Judge Senior Division - HRFB02</option>
+            <option value="HRFB03">Some Other Court - HRFB03</option>
+          </select>
+        </div>
+
+        <!-- Case Type -->
+        <label class="block text-lg font-medium text-teal-900 mb-1">Case Type:</label>
+        <select name="case_type" required class="w-full px-4 py-2 mb-4 border border-teal-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition">
+          <option value="">-- Select --</option>
+          <!-- Your original options -->
+          <option value="61">446 CR. P.C</option>
+          <option value="3">APP</option>
+          <option value="13">ARB</option>
+          <option value="25">BA</option>
+          <option value="1">CA</option>
+          <option value="37">CHA</option>
+          <option value="36">CHI</option>
+          <option value="2">CMA</option>
+          <option value="18">CM APPLI</option>
+          <option value="39">COMA</option>
+          <option value="38">COMI</option>
+          <option value="69">COMMERCIAL APPEAL</option>
+          <option value="68">COMMERCIAL SUIT</option>
+          <option value="64">CP</option>
+          <option value="49">CR</option>
+          <option value="35">CRA</option>
+          <option value="24">CRM</option>
+          <option value="40">CRMP</option>
+          <option value="33">CRR</option>
+          <option value="4">CS</option>
+          <option value="11">CS37</option>
+          <option value="31">DMC</option>
+          <option value="29">ELC</option>
+          <option value="48">EP</option>
+          <option value="12">EXE</option>
+          <option value="8">FD</option>
+          <option value="9">GW</option>
+          <option value="67">HAMA</option>
+          <option value="58">HDRA</option>
+          <option value="46">HMA</option>
+          <option value="57">HMCA</option>
+          <option value="15">INDIG</option>
+          <option value="16">INDIGA</option>
+          <option value="21">INSO</option>
+          <option value="60">IT ACT</option>
+          <option value="23">JJB</option>
+          <option value="14">LAC</option>
+          <option value="62">LAC EXE</option>
+          <option value="63">LAC MISC</option>
+          <option value="44">MACM</option>
+          <option value="66">MACM- FORM1</option>
+          <option value="43">MACP</option>
+          <option value="51">MHA</option>
+          <option value="26">MNT125</option>
+          <option value="19">MPL</option>
+          <option value="20">MPLA</option>
+          <option value="56">NACT</option>
+          <option value="27">NDPS</option>
+          <option value="53">OBJ</option>
+          <option value="28">PC</option>
+          <option value="22">PFA</option>
+          <option value="50">PFC</option>
+          <option value="65">PP</option>
+          <option value="32">PRI</option>
+          <option value="17">PROB</option>
+          <option value="6">RA</option>
+          <option value="47">REMP</option>
+          <option value="10">REW APP</option>
+          <option value="5">RP</option>
+          <option value="34">SC</option>
+          <option value="7">SUCC</option>
+          <option value="41">SUMM</option>
+          <option value="45">TA</option>
+          <option value="55">TELA ACT</option>
+          <option value="59">TELE ACT</option>
+          <option value="52">TRA</option>
+          <option value="54">UCR</option>
+          <option value="30">WKF</option>
         </select>
-      </div>
 
-      <!-- Case Type Dropdown -->
-      <label>Case Type:</label>
-      <select name="case_type" required>
-        <option value="">-- Select --</option>
-        <option value="61">446 CR. P.C</option>
-        <option value="3">APP</option>
-        <option value="13">ARB</option>
-        <option value="25">BA</option>
-        <option value="1">CA</option>
-        <option value="37">CHA</option>
-        <option value="36">CHI</option>
-        <option value="2">CMA</option>
-        <option value="18">CM APPLI</option>
-        <option value="39">COMA</option>
-        <option value="38">COMI</option>
-        <option value="69">COMMERCIAL APPEAL</option>
-        <option value="68">COMMERCIAL SUIT</option>
-        <option value="64">CP</option>
-        <option value="49">CR</option>
-        <option value="35">CRA</option>
-        <option value="24">CRM</option>
-        <option value="40">CRMP</option>
-        <option value="33">CRR</option>
-        <option value="4">CS</option>
-        <option value="11">CS37</option>
-        <option value="31">DMC</option>
-        <option value="29">ELC</option>
-        <option value="48">EP</option>
-        <option value="12">EXE</option>
-        <option value="8">FD</option>
-        <option value="9">GW</option>
-        <option value="67">HAMA</option>
-        <option value="58">HDRA</option>
-        <option value="46">HMA</option>
-        <option value="57">HMCA</option>
-        <option value="15">INDIG</option>
-        <option value="16">INDIGA</option>
-        <option value="21">INSO</option>
-        <option value="60">IT ACT</option>
-        <option value="23">JJB</option>
-        <option value="14">LAC</option>
-        <option value="62">LAC EXE</option>
-        <option value="63">LAC MISC</option>
-        <option value="44">MACM</option>
-        <option value="66">MACM- FORM1</option>
-        <option value="43">MACP</option>
-        <option value="51">MHA</option>
-        <option value="26">MNT125</option>
-        <option value="19">MPL</option>
-        <option value="20">MPLA</option>
-        <option value="56">NACT</option>
-        <option value="27">NDPS</option>
-        <option value="53">OBJ</option>
-        <option value="28">PC</option>
-        <option value="22">PFA</option>
-        <option value="50">PFC</option>
-        <option value="65">PP</option>
-        <option value="32">PRI</option>
-        <option value="17">PROB</option>
-        <option value="6">RA</option>
-        <option value="47">REMP</option>
-        <option value="10">REW APP</option>
-        <option value="5">RP</option>
-        <option value="34">SC</option>
-        <option value="7">SUCC</option>
-        <option value="41">SUMM</option>
-        <option value="45">TA</option>
-        <option value="55">TELA ACT</option>
-        <option value="59">TELE ACT</option>
-        <option value="52">TRA</option>
-        <option value="54">UCR</option>
-        <option value="30">WKF</option>
-      </select>
-      <br /><br />
+        <!-- Case Number -->
+        <label class="block text-lg font-medium text-teal-900 mb-1">Case Number:</label>
+        <input type="text" name="case_number" required class="w-full px-4 py-2 mb-4 border border-teal-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition" />
 
-      <!-- Case Number -->
-      <label>Case Number:</label>
-      <input type="text" name="case_number" required /><br /><br />
+        <!-- Year -->
+        <label class="block text-lg font-medium text-teal-900 mb-1">Filing Year:</label>
+        <select name="year" required class="w-full px-4 py-2 mb-6 border border-teal-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition">
+          <option value="">-- Select Year --</option>
+          {% for year in range(2000, 2026) %}
+          <option value="{{ year }}">{{ year }}</option>
+          {% endfor %}
+        </select>
 
-      <!-- Filing Year Dropdown -->
-      <label>Filing Year:</label>
-      <select name="year" required>
-        <option value="">-- Select Year --</option>
-        {% for year in range(2000, 2026) %}
-        <option value="{{ year }}">{{ year }}</option>
-        {% endfor %}</select
-      ><br /><br />
-
-      <button type="submit">Search</button>
-    </form>
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-4 rounded-lg transition">Search</button>
+      </form>
+    </div>
   </body>
 </html>

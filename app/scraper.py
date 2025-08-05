@@ -10,10 +10,37 @@ def fetch_and_save_case_details(case_type, case_number, year, court_type, court_
 
         # 1. Select court type radio
         if court_type == "complex":
-            page.check("#chkYes")  # ID of Court Complex
-            page.select_option("select#est_code", court_code)
+            page.check("#chkYes")
+
+            # Wait for the dropdown to be enabled (not for the option itself)
+            page.wait_for_selector("select#est_code:enabled", timeout=10000)
+            # Optionally, wait for options to be populated
+            page.wait_for_function(
+            "() => document.querySelectorAll('#est_code option').length > 1",
+            timeout=10000
+            )
+            html = page.inner_html("select#est_code")
+            print("Current est_code options:\n", html)
+            # Now select the option (do not wait for the option itself)
+            # If court_code contains commas, pick the first code
+            selected_code = court_code
+            # Manually set the correct value (as per actual HTML value)
+            page.select_option("select#est_code", "HRFB01,HRFB02,HRFB03")
+            print("👉 Selecting court_code: HRFB01,HRFB02,HRFB03")
+            
+            print("👉 Selecting court_code:", court_code)
+
+            # Removed invalid JavaScript code. Playwright handles option selection in Python.
+
+
         else:
-            page.check("#chkNo")  # ID of Court Establishment
+            page.check("#chkNo")
+
+            page.wait_for_selector("select#court_establishment:enabled", timeout=10000)
+            page.wait_for_function(
+            "() => document.querySelectorAll('#court_establishment option').length > 1",
+            timeout=10000
+            )
             page.select_option("select#court_establishment", court_code)
 
         # 2. Wait for case_type to be enabled

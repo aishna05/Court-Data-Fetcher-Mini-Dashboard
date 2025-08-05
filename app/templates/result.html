@@ -1,20 +1,47 @@
-<!-- result.html -->
-<h2>Fetched Case Details:</h2>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Case Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#14b8a6",   // Teal
+              light: "#f0fdfa",
+              soft: "#ccfbf1",
+            },
+            fontSize: {
+              base: "1.1rem",
+              lg: "1.25rem",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
 
-{% if error %}
-  <p style="color:red">{{ error }}</p>
-{% elif cases|length == 0 %}
-  <p>No case details found.</p>
-{% else %}
-  <ul>
-  {% for case in cases %}
-    <li>
-      <strong>{{ case.court }}</strong><br>
-      {{ case.case_info }}<br>
-      {{ case.parties }}<br>
-      CNR: {{ case.case_cno }}
-    </li>
-    <hr>
-  {% endfor %}
-  </ul>
-{% endif %}
+  <body class="min-h-screen bg-gradient-to-br from-teal-100 to-teal-200 p-8 font-sans text-gray-800">
+    <div class="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8 border border-teal-300">
+      <h2 class="text-3xl font-bold text-teal-700 mb-6 text-center">Fetched Case Details</h2>
+
+      {% if error %}
+        <p class="text-red-600 text-lg font-semibold">{{ error }}</p>
+      {% elif cases|length == 0 %}
+        <p class="text-gray-600 text-lg italic">No case details found.</p>
+      {% else %}
+        <ul class="space-y-6">
+          {% for case in cases %}
+            <li class="bg-teal-50 p-5 rounded-lg shadow-sm border border-teal-200">
+              <p class="text-xl font-semibold text-teal-800">{{ case.court }}</p>
+              <p class="mt-2 text-gray-700">{{ case.case_info }}</p>
+              <p class="mt-1 text-gray-600">{{ case.parties }}</p>
+              <p class="mt-1 text-sm text-teal-900 font-medium">CNR: {{ case.case_cno }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </body>
+</html>
